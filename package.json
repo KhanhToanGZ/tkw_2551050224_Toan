@@ -1,0 +1,16 @@
+{
+  "name": "cloudforge-landing-page",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CloudForge Landing Page - HTML & Tailwind CSS v4",
+  "author": "Đinh Võ Khánh Toàn",
+  "license": "MIT",
+  "scripts": {
+    "dev": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css --watch",
+    "build": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.12",
+    "tailwindcss": "^4.1.12"
+  }
+}
