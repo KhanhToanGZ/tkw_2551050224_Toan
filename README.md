@@ -2,15 +2,13 @@
 
 Dự án CloudForge - Cập nhật tính năng quản lý dữ liệu và Form liên hệ.
 
-## 🔗 Links
-- **Link Demo:** [Thêm link GitHub Pages/Vercel của bạn vào đây]
-- **Link Figma:** [Thêm link Figma của bạn vào đây]
+## Links
+- 
 
-## 📸 Ảnh chụp màn hình
-![Screenshot](./screenshot.png)
-*(Lưu ý: Bạn hãy chụp ảnh màn hình dự án và lưu thành file `screenshot.png` ở thư mục gốc nhé)*
+## Ảnh chụp màn hình
 
-## ✨ Danh sách tính năng
+
+## Danh sách tính năng
 - **Trang dữ liệu động (`records.html`):**
   - Load dữ liệu JSON bằng `fetch` và `async/await`.
   - Áp dụng mô hình `state -> render() -> DOM` chuyên nghiệp.
@@ -26,7 +24,7 @@ Dự án CloudForge - Cập nhật tính năng quản lý dữ liệu và Form l
   - Hiển thị Toast thông báo khi submit thành công hoặc thất bại.
   - Tuân thủ Accessibility (A11y) với thuộc tính `aria-invalid`.
 
-## 🚀 Hướng dẫn chạy
+## Hướng dẫn chạy
 Để chạy dự án với đầy đủ tính năng và không bị lỗi CORS khi fetch file JSON:
 
 1. Mở terminal tại thư mục gốc của dự án.
@@ -37,7 +35,7 @@ Dự án CloudForge - Cập nhật tính năng quản lý dữ liệu và Form l
 3. Mở trình duyệt và truy cập vào `http://localhost:3000` (hoặc cổng tương ứng).
 4. Điều hướng tới trang `/records.html` hoặc `/contact.html`.
 
-## 💡 3 điều tôi sẽ làm lại nếu có thêm thời gian
+## Chưa xong!!!
 1. **Thiết kế component:** Tách các thành phần giao diện (như Toast, Table Row) thành các component Web Components hoặc dùng framework như React/Vue để quản lý state phức tạp hơn thay vì thuần Vanilla JS.
 2. **Animation:** Thêm animation mượt mà khi thêm/xóa dòng trong bảng (dùng thư viện GSAP đã có sẵn trong dự án) thay vì chỉ thay thế DOM đơn thuần.
 3. **Mở rộng dữ liệu:** Bổ sung tính năng phân trang (pagination) cho bảng dữ liệu và kết nối với Backend/Database thực tế thay vì chỉ mô phỏng bằng JSON và `localStorage`.
