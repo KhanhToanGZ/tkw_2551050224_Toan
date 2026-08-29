@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CloudForge — Data Records</title>
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem("cf-theme") === "light") {
+          document.documentElement.classList.add("light");
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          colors: {
+            page: 'rgb(var(--c-page) / <alpha-value>)',
+            'page-soft': 'rgb(var(--c-page-soft) / <alpha-value>)',
+            panel: 'rgb(var(--c-panel) / <alpha-value>)',
+            surface: 'rgb(var(--c-surface) / <alpha-value>)',
+            border: 'rgb(var(--c-border) / <alpha-value>)',
+            muted: 'rgb(var(--c-muted) / <alpha-value>)',
+            soft: 'rgb(var(--c-soft) / <alpha-value>)',
+            brand: {
+              DEFAULT: 'rgb(var(--c-brand) / <alpha-value>)',
+              dark: 'rgb(var(--c-brand-dark) / <alpha-value>)'
+            },
+            cyan: 'rgb(var(--c-cyan) / <alpha-value>)',
+            success: 'rgb(var(--c-success) / <alpha-value>)',
+            warning: 'rgb(var(--c-warning) / <alpha-value>)',
+            danger: 'rgb(var(--c-danger) / <alpha-value>)',
+            white: 'rgb(var(--c-white) / <alpha-value>)',
+            slate: {
+              500: 'rgb(var(--c-slate-500) / <alpha-value>)',
+              600: 'rgb(var(--c-slate-600) / <alpha-value>)',
+              700: 'rgb(var(--c-slate-700) / <alpha-value>)',
+              800: 'rgb(var(--c-slate-800) / <alpha-value>)',
+              900: 'rgb(var(--c-slate-900) / <alpha-value>)'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="./src/input.css">
+  <style>
+    .theme-icon-sun { display: none; }
+    .theme-icon-moon { display: block; }
+    html.light .theme-icon-sun { display: block; }
+    html.light .theme-icon-moon { display: none; }
+    html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {
+      transition: background-color .35s ease, border-color .35s ease, color .35s ease, fill .35s ease, box-shadow .35s ease !important;
+    }
+    
+    /* Layout for states */
+    #state-loading, #state-error, #state-empty, #state-data { display: none; }
+    
+    [data-state="loading"] #state-loading { display: flex; }
+    [data-state="error"] #state-error { display: flex; }
+    [data-state="empty"] #state-empty { display: flex; }
+    [data-state="data"] #state-data { display: block; }
+  </style>
+</head>
+<body class="bg-page text-white">
+  
+  <header class="sticky top-0 z-50 border-b border-slate-800/80 bg-page/95 backdrop-blur">
+    <nav class="mx-auto flex h-[64px] max-w-[1280px] items-center justify-between px-5 lg:px-8">
+      <a data-page-link href="index.html#hero" class="flex items-center gap-2.5 font-bold">
+        <span class="grid h-7 w-7 place-items-center rounded-md border border-brand/70 bg-brand/10 text-cyan">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <span>CloudForge</span>
+      </a>
+
+      <div id="desktop-nav" class="hidden items-center gap-8 text-xs text-soft md:flex">
+        <a class="transition hover:text-white" href="index.html#hero">Product</a>
+        <a class="transition hover:text-white" href="index.html#features">Features</a>
+        <a class="transition hover:text-white" href="index.html#pricing">Pricing</a>
+        <a class="transition hover:text-white" href="index.html#faq">Docs</a>
+        <a class="transition hover:text-white" href="index.html#Enterprise">Enterprise</a>
+        <a class="text-cyan" href="records.html">Data Records</a>
+        <a class="transition hover:text-white" href="contact.html">Contact</a>
+      </div>
+
+      <div class="hidden items-center gap-5 md:flex">
+        <button data-theme-toggle type="button" class="grid h-8 w-8 place-items-center rounded-lg border border-slate-700 text-soft transition hover:border-slate-500 hover:text-white" aria-label="Switch to light mode" aria-pressed="false" title="Toggle theme">
+          <svg class="theme-icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="theme-icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <a href="#" class="text-xs text-soft hover:text-white">Sign in</a>
+        <a data-page-link href="index.html#pricing" class="rounded-full bg-brand-dark px-5 py-2 text-xs font-semibold shadow-glow transition hover:bg-brand">Start Free Trial</a>
+      </div>
+
+      <div class="flex items-center gap-2 md:hidden">
+        <button data-theme-toggle type="button" class="grid h-9 w-9 place-items-center rounded-lg border border-slate-700 text-soft transition hover:border-slate-500 hover:text-white" aria-label="Switch to light mode" aria-pressed="false" title="Toggle theme">
+          <svg class="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button id="menu-button" class="rounded-lg border border-slate-700 p-2 text-soft md:hidden" aria-label="Open menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <div id="mobile-menu" class="hidden border-t border-slate-800 bg-page px-5 py-5 md:hidden">
+      <div class="flex flex-col gap-4 text-sm text-soft">
+        <a data-page-link href="index.html#hero">Product</a><a data-page-link href="index.html#features">Features</a><a data-page-link href="index.html#pricing">Pricing</a><a data-page-link href="index.html#faq">Docs</a><a data-page-link href="index.html#pricing">Enterprise</a>
+        <a href="records.html">Data Records</a><a href="contact.html">Contact</a>
+        <a data-page-link href="index.html#pricing" class="mt-2 rounded-full bg-brand-dark px-5 py-3 text-center font-semibold text-white">Start Free Trial</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-[1280px] px-5 py-12 lg:px-8">
+    <div class="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+      <div>
+        <h1 class="text-3xl font-bold">Server Instances</h1>
+        <p class="mt-2 text-sm text-soft">Manage and monitor your cloud infrastructure.</p>
+      </div>
+      <div class="flex gap-2">
+        <button id="btn-restore" class="rounded-lg border border-slate-700 bg-surface px-4 py-2 text-xs font-semibold hover:border-slate-500">
+          Restore default data
+        </button>
+        <button id="btn-add" class="rounded-lg bg-cyan px-4 py-2 text-xs font-semibold text-page hover:bg-cyan/90">
+          Launch Instance
+        </button>
+      </div>
+    </div>
+
+    <!-- Toolbar: Search, Filter, Sort -->
+    <div class="mb-6 flex flex-wrap gap-4 rounded-xl border border-slate-800 bg-surface p-4">
+      <div class="flex-1 min-w-[200px]">
+        <label for="search-input" class="sr-only">Search</label>
+        <input type="text" id="search-input" placeholder="Search by instance name or ID..." class="w-full rounded-lg border border-slate-700 bg-page px-4 py-2 text-sm text-white placeholder-soft focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan">
+      </div>
+      
+      <div>
+        <label for="filter-category" class="sr-only">Filter by Region</label>
+        <select id="filter-category" class="rounded-lg border border-slate-700 bg-page px-4 py-2 text-sm text-white focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan">
+          <option value="all">All Regions</option>
+          <option value="us-east-1">us-east-1</option>
+          <option value="us-west-1">us-west-1</option>
+          <option value="eu-west-2">eu-west-2</option>
+          <option value="eu-central-1">eu-central-1</option>
+          <option value="ap-south-1">ap-south-1</option>
+          <option value="ap-southeast-1">ap-southeast-1</option>
+        </select>
+      </div>
+      
+      <div>
+        <label for="filter-status" class="sr-only">Filter by Status</label>
+        <select id="filter-status" class="rounded-lg border border-slate-700 bg-page px-4 py-2 text-sm text-white focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan">
+          <option value="all">All Statuses</option>
+          <option value="running">Running</option>
+          <option value="stopped">Stopped</option>
+          <option value="provisioning">Provisioning</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="sort-select" class="sr-only">Sắp xếp</label>
+        <select id="sort-select" class="rounded-lg border border-slate-700 bg-page px-4 py-2 text-sm text-white focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan">
+          <option value="date-desc">Newest First</option>
+          <option value="date-asc">Oldest First</option>
+          <option value="amount-desc">Cost: High to Low</option>
+          <option value="amount-asc">Cost: Low to High</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Data States Container -->
+    <div id="data-container" data-state="loading" class="min-h-[400px] rounded-xl border border-slate-800 bg-surface">
+      
+      <!-- 1. Loading State -->
+      <div id="state-loading" class="flex-col items-center justify-center p-12 text-soft">
+        <svg class="h-8 w-8 animate-spin text-cyan" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+        <p class="mt-4 text-sm font-medium">Loading infrastructure data...</p>
+      </div>
+
+      <!-- 2. Error State -->
+      <div id="state-error" class="flex-col items-center justify-center p-12 text-danger">
+        <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        <p id="error-message" class="mt-4 text-sm font-medium">An error occurred</p>
+      </div>
+
+      <!-- 3. Empty State -->
+      <div id="state-empty" class="flex-col items-center justify-center p-12 text-soft">
+        <svg class="h-10 w-10 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
+        <p class="mt-4 text-sm font-medium">No instances found.</p>
+      </div>
+
+      <!-- 4. Data State -->
+      <div id="state-data" class="w-full overflow-x-auto">
+        <table class="w-full text-left text-sm text-soft">
+          <thead class="border-b border-slate-700 bg-slate-800/50 text-xs font-semibold uppercase text-slate-400">
+            <tr>
+              <th scope="col" class="px-6 py-4">Instance ID</th>
+              <th scope="col" class="px-6 py-4">Name</th>
+              <th scope="col" class="px-6 py-4">Region</th>
+              <th scope="col" class="px-6 py-4">Status</th>
+              <th scope="col" class="px-6 py-4">RAM (GB)</th>
+              <th scope="col" class="px-6 py-4">Monthly Cost</th>
+              <th scope="col" class="px-6 py-4">Launch Date</th>
+              <th scope="col" class="px-6 py-4 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="table-body" class="divide-y divide-slate-800">
+            <!-- Rows rendered here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <template id="row-template">
+    <tr class="transition hover:bg-slate-800/30">
+      <td class="px-6 py-4 font-mono text-xs text-white" data-cell="id"></td>
+      <td class="px-6 py-4 font-medium text-white" data-cell="name"></td>
+      <td class="px-6 py-4 font-mono text-xs" data-cell="region"></td>
+      <td class="px-6 py-4">
+        <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium" data-cell="status"></span>
+      </td>
+      <td class="px-6 py-4 font-mono" data-cell="ram"></td>
+      <td class="px-6 py-4 font-mono text-cyan" data-cell="cost"></td>
+      <td class="px-6 py-4" data-cell="date"></td>
+      <td class="px-6 py-4 text-right">
+        <button class="btn-delete text-danger hover:text-red-400" aria-label="Terminate Instance">
+          <svg class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+        </button>
+      </td>
+    </tr>
+  </template>
+
+  <!-- Modal for Launch Instance -->
+  <div id="modal-launch" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+    <div class="w-full max-w-md rounded-2xl border border-slate-700 bg-page p-6 shadow-2xl">
+      <h2 class="text-xl font-bold text-white mb-4">Launch New Instance</h2>
+      <form id="form-launch" class="flex flex-col gap-4">
+        <div>
+          <label for="instance-name" class="block text-sm font-medium text-soft mb-1">Instance Name</label>
+          <input type="text" id="instance-name" required placeholder="e.g. prod-db-01" class="w-full rounded-lg border border-slate-700 bg-surface px-4 py-2 text-sm text-white focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan">
+        </div>
+        <div>
+          <label for="instance-status" class="block text-sm font-medium text-soft mb-1">Status</label>
+          <select id="instance-status" required class="w-full rounded-lg border border-slate-700 bg-surface px-4 py-2 text-sm text-white focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan">
+            <option value="provisioning">Provisioning</option>
+            <option value="running">Running</option>
+            <option value="stopped">Stopped</option>
+          </select>
+        </div>
+        <div>
+          <label for="instance-region" class="block text-sm font-medium text-soft mb-1">Region</label>
+          <select id="instance-region" required class="w-full rounded-lg border border-slate-700 bg-surface px-4 py-2 text-sm text-white focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan">
+            <option value="us-east-1">us-east-1 (Base cost)</option>
+            <option value="us-west-1">us-west-1 (+$5/mo)</option>
+            <option value="eu-west-2">eu-west-2 (+$10/mo)</option>
+            <option value="eu-central-1">eu-central-1 (+$10/mo)</option>
+            <option value="ap-south-1">ap-south-1 (+$15/mo)</option>
+            <option value="ap-southeast-1">ap-southeast-1 (+$15/mo)</option>
+          </select>
+        </div>
+        <div>
+          <label for="instance-ram" class="block text-sm font-medium text-soft mb-1">RAM (Memory)</label>
+          <select id="instance-ram" required class="w-full rounded-lg border border-slate-700 bg-surface px-4 py-2 text-sm text-white focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan">
+            <option value="8">8 GB (+$40/mo)</option>
+            <option value="16">16 GB (+$80/mo)</option>
+            <option value="32">32 GB (+$160/mo)</option>
+            <option value="64">64 GB (+$320/mo)</option>
+          </select>
+        </div>
+        <div class="flex items-center justify-between mt-2 border-t border-slate-800 pt-4">
+          <div class="text-sm font-medium text-soft">Estimated Cost:</div>
+          <div class="text-lg font-bold text-cyan">$<span id="estimated-cost">60.00</span>/mo</div>
+        </div>
+        <div class="mt-2 flex justify-end gap-3">
+          <button type="button" id="btn-cancel-launch" class="rounded-lg px-4 py-2 text-sm font-semibold text-soft transition hover:text-white">Cancel</button>
+          <button type="submit" class="rounded-lg bg-cyan px-5 py-2 text-sm font-semibold text-page shadow-glow transition hover:bg-cyan/90">Launch</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="border-t border-slate-800 bg-page mt-12">
+    <div class="mx-auto max-w-[1120px] px-5 py-8 lg:px-8 text-center text-xs text-soft">
+      © 2026 CloudForge Inc. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="./src/records.js"></script>
+</body>
+</html>
